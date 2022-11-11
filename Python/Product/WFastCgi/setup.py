@@ -5,8 +5,8 @@ with open(join(split(__file__)[0], 'README.rst')) as f:
     long_description = f.read()
 
 setup(
-    name='wfastcgi',
-    version='3.0.0',
+    name='chul-wfastcgi',
+    version='3.0.0.post1',
 
     description='An IIS-Python bridge based on WSGI and FastCGI.',
     long_description=long_description,

@@ -16,7 +16,7 @@
 from __future__ import absolute_import, print_function, with_statement
 
 __author__ = "Microsoft Corporation <ptvshelp@microsoft.com>"
-__version__ = "3.0.0"
+__version__ = "3.0.0post1"
 
 import ctypes
 import datetime
@@ -155,7 +155,14 @@ else:
 
 def read_fastcgi_record(stream):
     """reads the main fast cgi record"""
-    data = stream.read(8)     # read record
+    try:
+        # The call fails under undetermined circumstances.
+        data = stream.read(8)     # read record
+    except OSError as ex:
+        if (ex.errno != 22):    # "Invalid argument".
+            raise
+        data = None
+
     if not data:
         # no more data, our other process must have died...
         raise _ExitException()
